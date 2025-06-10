@@ -1,8 +1,9 @@
-[gd_scene load_steps=9 format=3 uid="uid://da0wdun62jma6"]
+[gd_scene load_steps=11 format=3 uid="uid://da0wdun62jma6"]
 
 [ext_resource type="Material" uid="uid://vo1llyou40fm" path="res://materials/white.tres" id="1_ufdl5"]
-[ext_resource type="Script" path="res://scripts/gd-syntax.gd" id="2_1ti48"]
+[ext_resource type="Script" path="res://scripts/player-controller.gd" id="2_iqr7l"]
 [ext_resource type="Material" uid="uid://b8tbtfxb8rndq" path="res://materials/red.tres" id="3_ll81h"]
+[ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="3_q28b7"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_snw0r"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,6 +18,9 @@ sky = SubResource("Sky_5v2dm")
 tonemap_mode = 2
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_trgub"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_eeodk"]
+material = ExtResource("1_ufdl5")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_18qpp"]
 
@@ -60,23 +64,29 @@ transform = Transform3D(0.88321, 0, -0.468978, 0, 1, 0, 0.468978, 0, 0.88321, -3
 operation = 2
 size = Vector3(3.43652, 1, 6.54483)
 
-[node name="CameraPivot" type="Node3D" parent="."]
-transform = Transform3D(0.695675, 0, 0.718357, 0, 1, 0, -0.718357, 0, 0.695675, 0, 0, 0)
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.817507, 0.575919, 0, -0.575919, 0.817507, 0, 7.02282, 4.77404)
-
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.08285, 0)
-script = ExtResource("2_1ti48")
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185736, -0.375336)
+script = ExtResource("2_iqr7l")
 
 [node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59176, 0)
 mesh = SubResource("CapsuleMesh_trgub")
 
+[node name="Eyes" type="MeshInstance3D" parent="Player/PlayerMesh"]
+transform = Transform3D(0.974894, 0, 0, 0, 0.514799, 0, 0, 0, 0.499464, 0, 0.265777, -0.356846)
+mesh = SubResource("BoxMesh_eeodk")
+skeleton = NodePath("../..")
+
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="Player"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59611, 0)
 shape = SubResource("CapsuleShape3D_18qpp")
+
+[node name="CameraPivot" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.185736, 0.375336)
+script = ExtResource("3_q28b7")
+
+[node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
+transform = Transform3D(1, 0, 0, 0, 0.817507, 0.575919, 0, -0.575919, 0.817507, 0, 7.02282, 4.77404)
 
 [node name="Level" type="Node3D" parent="."]
 
