@@ -1,9 +1,15 @@
-[gd_scene load_steps=11 format=3 uid="uid://da0wdun62jma6"]
+[gd_scene load_steps=21 format=3 uid="uid://da0wdun62jma6"]
 
 [ext_resource type="Material" uid="uid://vo1llyou40fm" path="res://materials/white.tres" id="1_ufdl5"]
 [ext_resource type="Script" path="res://scripts/player-controller.gd" id="2_iqr7l"]
 [ext_resource type="Material" uid="uid://b8tbtfxb8rndq" path="res://materials/red.tres" id="3_ll81h"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="3_q28b7"]
+[ext_resource type="PackedScene" uid="uid://bx4rc5o0jewgj" path="res://assets/characters/Models/character-male-d.glb" id="4_6v1k3"]
+[ext_resource type="PackedScene" uid="uid://b1baeaj2bjomq" path="res://assets/space-station/Models/container-flat.glb" id="5_nq4ve"]
+[ext_resource type="PackedScene" uid="uid://dpx5152de8ikw" path="res://assets/space-station/Models/container-tall.glb" id="6_xiyq6"]
+[ext_resource type="PackedScene" uid="uid://b6a2obl6rxh7k" path="res://scenes/physics_container.tscn" id="7_3y4jh"]
+[ext_resource type="MeshLibrary" uid="uid://4ctcqm04xn34" path="res://mesh-libraries/wall-libraries.tres" id="8_0k6r8"]
+[ext_resource type="PackedScene" uid="uid://tjjkh1qg4tgg" path="res://assets/space-station/Models/table-display-planet.glb" id="9_jrfpp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_snw0r"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -17,12 +23,104 @@ background_mode = 2
 sky = SubResource("Sky_5v2dm")
 tonemap_mode = 2
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_trgub"]
-
-[sub_resource type="BoxMesh" id="BoxMesh_eeodk"]
-material = ExtResource("1_ufdl5")
-
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_18qpp"]
+radius = 0.215783
+height = 0.644518
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b1aqe"]
+points = PackedVector3Array(0.359497, 0.449941, -0.240978, 0.299977, 0.449941, 0.349986, 0.359497, 0.149941, -0.240978, 0.359497, 0.449941, -0.341038, 0.20947, 0.6, -0.240978, 0.299977, 0.149941, 0.349986, 0.14995, 0.6, 0.349986, 0.0999847, 0.49998, 0.55, 0.199981, 0.399961, 0.55, 0.20947, 1.0558e-14, -0.240978, 0.359497, 0.149941, -0.341038, 0.309467, 0.42498, -0.440992, 0.20947, 0.6, -0.341038, 0.199981, 0.19998, 0.55, 0.0999847, 0.0999608, 0.55, 0.14995, 1.0558e-14, 0.349986, -0.150038, 0.6, 0.349986, -0.100008, 0.49998, 0.55, 0.20947, 1.0558e-14, -0.341038, 0.184488, 0.0499804, -0.440992, 0.15944, 0.0999608, -0.540945, 0.259436, 0.19998, -0.540945, 0.259436, 0.399961, -0.540945, 0.15944, 0.49998, -0.540945, 0.184488, 0.549961, -0.440992, -0.090518, 0.6, -0.341038, -0.100008, 0.0999608, 0.55, -0.150038, 1.0558e-14, 0.349986, -0.150038, 0.6, 0.249926, -0.3, 0.449941, 0.349986, -0.250034, 0.42498, 0.44994, -0.200004, 0.399961, 0.55, -0.090518, 1.0558e-14, -0.341038, -0.0405522, 0.0999608, -0.540945, -0.0405522, 0.49998, -0.540945, -0.240545, 0.449941, -0.341038, -0.200004, 0.19998, 0.55, -0.3, 0.149941, 0.349986, -0.150038, 1.0558e-14, 0.249926, -0.3, 0.449941, 0.249926, -0.250034, 0.174961, 0.44994, -0.240545, 0.149941, -0.341038, -0.140548, 0.19998, -0.540945, -0.140548, 0.399961, -0.540945, -0.3, 0.149941, 0.249926)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_stgpp"]
+points = PackedVector3Array(-5.87404e-05, 0.2, -0.3, -0.212138, 0.2, -0.212138, -5.87404e-05, 0.699951, -0.3, 0.212079, 0.2, -0.212138, -0.3, 0.2, -5.87404e-05, -0.212138, 0.699951, -0.212138, 0.212079, 0.699951, -0.212138, 0.3, 0.2, -5.87404e-05, -0.3, 0.699951, -5.87404e-05, -0.212138, 0.2, 0.212079, 0.3, 0.699951, -5.87404e-05, 0.212079, 0.2, 0.212079, -0.212138, 0.699951, 0.212079, -5.87404e-05, 0.2, 0.3, 0.212079, 0.699951, 0.212079, -5.87404e-05, 0.699951, 0.3)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_t25xh"]
+points = PackedVector3Array(-0.5, 0.0999902, 0.249951, -0.426782, 0.0999902, 0.426733, -0.5, 0.799922, 0.249951, -0.426782, 0.0999902, 0.0732185, -0.450029, 0, 0.249951, -0.250049, 0.0999902, 0.5, -0.426782, 0.799922, 0.426733, -0.391445, 0, 0.391396, -0.426782, 0.799922, 0.0732185, -0.450029, 0.9, 0.249951, -0.250049, 0.0999902, 0, -0.250049, 0, 0.0499706, -0.391445, 0, 0.108555, -0.0732674, 0.0999902, 0.426733, -0.250049, 0.799922, 0.5, -0.250049, 0, 0.44998, -0.108604, 0, 0.391396, -0.391445, 0.9, 0.391396, -0.391445, 0.9, 0.108555, -0.250049, 0.9, 0.0499706, -0.250049, 0.799922, 0, -0.0732674, 0.0999902, 0.0732185, -0.108604, 0, 0.108555, 0, 0.0999902, 0.249951, -0.0732674, 0.799922, 0.426733, -0.108604, 0.9, 0.391396, -0.250049, 0.9, 0.44998, -0.0500196, 0, 0.249951, -0.108604, 0.9, 0.108555, -0.0732674, 0.799922, 0.0732185, 0, 0.799922, 0.249951, -0.0500196, 0.9, 0.249951)
+
+[sub_resource type="Animation" id="Animation_ls4by"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("table-display-planet/planet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.25, 0.3, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("table-display-planet/planet:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("table-display-planet/planet-ring:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_im1ob"]
+resource_name = "rotation-planet"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("table-display-planet/planet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.25, 0.3, 0.25), Vector3(-0.25, 0.625431, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("table-display-planet/planet:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("table-display-planet/planet-ring:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wxfjo"]
+_data = {
+"RESET": SubResource("Animation_ls4by"),
+"rotation-planet": SubResource("Animation_im1ob")
+}
 
 [node name="Main" type="Node3D"]
 
@@ -65,28 +163,30 @@ operation = 2
 size = Vector3(3.43652, 1, 6.54483)
 
 [node name="Player" type="CharacterBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.185736, -0.375336)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.580424, -0.375336)
 script = ExtResource("2_iqr7l")
 
-[node name="PlayerMesh" type="MeshInstance3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59176, 0)
-mesh = SubResource("CapsuleMesh_trgub")
-
-[node name="Eyes" type="MeshInstance3D" parent="Player/PlayerMesh"]
-transform = Transform3D(0.974894, 0, 0, 0, 0.514799, 0, 0, 0, 0.499464, 0, 0.265777, -0.356846)
-mesh = SubResource("BoxMesh_eeodk")
-skeleton = NodePath("../..")
-
 [node name="PlayerCollisionShape" type="CollisionShape3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.59611, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.328442, 0)
 shape = SubResource("CapsuleShape3D_18qpp")
 
 [node name="CameraPivot" type="Node3D" parent="Player"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.185736, 0.375336)
 script = ExtResource("3_q28b7")
 
 [node name="Camera3D" type="Camera3D" parent="Player/CameraPivot"]
-transform = Transform3D(1, 0, 0, 0, 0.817507, 0.575919, 0, -0.575919, 0.817507, 0, 7.02282, 4.77404)
+transform = Transform3D(1, 0, 0, 0, 0.817507, 0.575919, 0, -0.575919, 0.817507, 0, 1.9248, 1.44577)
+
+[node name="PlayerMesh" parent="Player" instance=ExtResource("4_6v1k3")]
+
+[node name="character-male-d" parent="Player/PlayerMesh" index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Player/PlayerMesh/character-male-d" index="0"]
+bones/4/rotation = Quaternion(0, 0, -0.382683, 0.92388)
+bones/5/rotation = Quaternion(0, 0, 0.382683, 0.92388)
+
+[node name="AnimationPlayer" parent="Player/PlayerMesh" index="1"]
+autoplay = "idle"
 
 [node name="Level" type="Node3D" parent="."]
 
@@ -101,3 +201,47 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.27339, 1.39196, 2.51559)
 use_collision = true
 size = Vector3(2.46283, 2.00696, 6.03119)
 material = ExtResource("3_ll81h")
+
+[node name="Container1" type="StaticBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.72283, 0.937352, -3.98807)
+
+[node name="container-flat2" parent="Container1" instance=ExtResource("5_nq4ve")]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container1"]
+shape = SubResource("ConvexPolygonShape3D_b1aqe")
+
+[node name="Container2" parent="." instance=ExtResource("6_xiyq6")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.65888, 1.00954, -6.97489)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Container2/container-tall" index="1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Container2/container-tall/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_stgpp")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Container2/container-tall/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.25, 0, -0.25)
+shape = SubResource("ConvexPolygonShape3D_t25xh")
+
+[node name="PhysicsContainer" parent="." instance=ExtResource("7_3y4jh")]
+
+[node name="GridMap" type="GridMap" parent="."]
+mesh_library = ExtResource("8_0k6r8")
+cell_size = Vector3(1, 1, 1)
+data = {
+"cells": PackedInt32Array(3, 65534, 0, 4, 65534, 0, 5, 65534, 0, 6, 65534, 0, 7, 65534, 655366, 8, 65534, 655360, 9, 65534, 655361, 9, 65535, 1048576, 9, 0, 1048576, 9, 1, 1048576, 9, 3, 1441792, 9, 2, 1441792, 9, 4, 1441792, 9, 5, 1048577, 8, 5, 0, 7, 5, 0)
+}
+metadata/_editor_floor_ = Vector3(0, 0, 0)
+
+[node name="table-display-planet2" parent="." instance=ExtResource("9_jrfpp")]
+transform = Transform3D(2.44, 0, 0, 0, 2.44, 0, 0, 0, 2.44, -1.24845, 0.505543, -4.05274)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="table-display-planet2"]
+libraries = {
+"": SubResource("AnimationLibrary_wxfjo")
+}
+autoplay = "rotation-planet"
+
+[editable path="Player/PlayerMesh"]
+[editable path="Container1/container-flat2"]
+[editable path="Container2"]
+[editable path="table-display-planet2"]

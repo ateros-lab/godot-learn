@@ -1,0 +1,120 @@
+[gd_scene load_steps=17 format=3 uid="uid://b4hdk4bjfob4p"]
+
+[ext_resource type="PackedScene" uid="uid://brlugifkmcq8t" path="res://assets/space-station/Models/wall-banner.glb" id="1_8fcee"]
+[ext_resource type="PackedScene" uid="uid://0dr0t2v2he0m" path="res://assets/space-station/Models/wall-corner-banner.glb" id="2_blr0h"]
+[ext_resource type="PackedScene" uid="uid://dowuh3b2cdms8" path="res://assets/space-station/Models/wall-corner-round-banner.glb" id="3_a2q71"]
+[ext_resource type="PackedScene" uid="uid://dhdf1g71hi3f7" path="res://assets/space-station/Models/wall-corner-round.glb" id="4_63pkl"]
+[ext_resource type="PackedScene" uid="uid://invn5ph748vd" path="res://assets/space-station/Models/wall-corner.glb" id="5_n2gjv"]
+[ext_resource type="PackedScene" uid="uid://cnqvls7sv1cv6" path="res://assets/space-station/Models/wall-detail.glb" id="6_j8mfn"]
+[ext_resource type="PackedScene" uid="uid://c3cr4augkyo12" path="res://assets/space-station/Models/wall-door-banner.glb" id="7_0ryks"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_q6hhx"]
+points = PackedVector3Array(0.5, 1, 0.15, 0.5, 1, -0.15, -0.5, 1, 0.15, 0.5, 0, 0.15, 0.5, 0, -0.15, -0.5, 1, -0.15, -0.5, 0, 0.15, -0.5, 0, -0.15)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_35lmd"]
+points = PackedVector3Array(-0.4, 0, -0.4, -0.1, 0, -0.4, -0.4, 0, 0.3, -0.4, 1, -0.4, 0.4, 0, 0.1, -0.1, 1, -0.4, -0.370713, 0, 0.370634, -0.378935, 0.799922, 0.378857, -0.4, 0.799922, 0.328034, -0.4, 1, 0.328034, 0.4, 0, 0.4, 0.4, 1, 0.1, -0.300078, 0, 0.4, -0.328113, 0.799922, 0.4, -0.378935, 1, 0.378857, 0.4, 1, 0.4, -0.328113, 1, 0.4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_4bl82"]
+points = PackedVector3Array(-0.4, 0, -0.4, -0.1, 0, -0.4, -0.372749, 0, -0.192952, -0.4, 1, -0.4, 0.4, 0, 0.1, -0.1, 1, -0.4, -0.292874, 0, 0, -0.372749, 1, -0.192952, 0.4, 0, 0.4, 0.4, 1, 0.1, -0.165701, 0, 0.165623, -0.292874, 1, 0, 0.192874, 0, 0.37267, 0.4, 1, 0.4, 0, 0, 0.292796, -0.165701, 1, 0.165623, 0.192874, 1, 0.37267, 0, 1, 0.292796)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_phrth"]
+points = PackedVector3Array(-0.4, 0, -0.4, -0.100078, 0, -0.4, -0.372749, 0, -0.193031, -0.4, 1, -0.4, 0.399922, 0, 0.0999217, -0.100078, 1, -0.4, -0.292874, 0, -7.83205e-05, -0.372749, 1, -0.193031, 0.399922, 0, 0.4, 0.399922, 1, 0.0999217, -0.165701, 0, 0.165623, -0.292874, 1, -7.83205e-05, 0.192874, 0, 0.37267, 0.399922, 1, 0.4, -7.82907e-05, 0, 0.292796, -0.165701, 1, 0.165623, 0.192874, 1, 0.37267, -7.82907e-05, 1, 0.292796)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_cvxd7"]
+points = PackedVector3Array(-0.4, 0, -0.4, -0.100078, 0, -0.4, -0.4, 0, 0.299922, -0.4, 1, -0.4, 0.4, 0, 0.0999217, -0.100078, 1, -0.4, -0.370791, 0, 0.370634, -0.379013, 0.799922, 0.378857, -0.4, 0.799922, 0.328034, -0.4, 1, 0.328034, 0.4, 0, 0.4, 0.4, 1, 0.0999217, -0.300078, 0, 0.4, -0.328113, 0.799922, 0.4, -0.379013, 1, 0.378857, 0.4, 1, 0.4, -0.328113, 1, 0.4)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_gbwvr"]
+points = PackedVector3Array(-0.2, 0.0999706, -1.69501e-05, -0.150039, 0.0999706, 0.0866026, -0.2, 0.14999, -1.69501e-05, -0.150039, 0.0999706, -0.0866026, -0.171143, 0, -1.69501e-05, 0.0499609, 0.0999706, 0.0866026, -0.150039, 0.14999, 0.0866026, -0.135591, 0, 0.061595, -0.150039, 0.14999, -0.0866026, -0.171143, 0.699932, -1.69501e-05, 0.149961, 0.0999706, -0.0866026, -0.135591, 0, -0.0616119, 0.149961, 0.0999706, 0.0865856, 0.0499609, 0.14999, 0.0866026, 0.135552, 0, 0.061595, -0.135591, 0.699932, 0.061595, -0.135591, 0.699932, -0.0616119, 0.149961, 0.14999, -0.0866026, 0.2, 0.0999706, -1.69501e-05, 0.135552, 0, -0.0616119, 0.149961, 0.14999, 0.0865856, 0.135552, 0.699932, 0.061595, 0.171104, 0, -1.69501e-05, 0.135552, 0.699932, -0.0616119, 0.2, 0.14999, -1.69501e-05, 0.171104, 0.699932, -1.69501e-05)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ccsrk"]
+points = PackedVector3Array(-0.150019, 0.1, -1.04308e-07, -0.2, 0.1, 0.0865855, -0.150019, 0.15, -1.04308e-07, -0.0500195, 0.1, -1.04308e-07, -0.2, 0.15, 0.0865855, -0.150019, 0.1, 0.173205, -0.0500195, 0.15, -1.04308e-07, 1.19209e-07, 0.1, 0.0865855, -0.150019, 0.15, 0.173205, -0.0500195, 0.1, 0.173188, 1.19209e-07, 0.15, 0.0865855, -0.0500195, 0.15, 0.173188)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_ddnwj"]
+points = PackedVector3Array(-0.150019, 0.1, -1.04308e-07, -0.2, 0.1, 0.0865855, -0.150019, 0.15, -1.04308e-07, -0.0500195, 0.1, -1.04308e-07, -0.2, 0.15, 0.0865855, -0.150019, 0.1, 0.173205, -0.0500195, 0.15, -1.04308e-07, 1.19209e-07, 0.1, 0.0865855, -0.150019, 0.15, 0.173205, -0.0500195, 0.1, 0.173188, 1.19209e-07, 0.15, 0.0865855, -0.0500195, 0.15, 0.173188)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_xv64q"]
+points = PackedVector3Array(0.5, 1, 0.15, 0.5, 0, 0.15, 0.5, 1, -0.15, -0.5, 1, 0.15, 0.5, 0, -0.15, -0.5, 0, 0.15, -0.5, 1, -0.15, -0.5, 0, -0.15)
+
+[node name="Walls" type="Node3D"]
+
+[node name="wall-banner2" parent="." instance=ExtResource("1_8fcee")]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-banner2/wall-banner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-banner2/wall-banner/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_q6hhx")
+
+[node name="wall-corner-banner2" parent="." instance=ExtResource("2_blr0h")]
+
+[node name="wall-corner-banner" parent="wall-corner-banner2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250485, 0, -0.250882)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-corner-banner2/wall-corner-banner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-corner-banner2/wall-corner-banner/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_35lmd")
+
+[node name="wall-corner-round-banner2" parent="." instance=ExtResource("3_a2q71")]
+visible = false
+
+[node name="wall-corner-round-banner" parent="wall-corner-round-banner2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250485, 0, -0.250882)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-corner-round-banner2/wall-corner-round-banner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-corner-round-banner2/wall-corner-round-banner/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_4bl82")
+
+[node name="wall-corner-round2" parent="." instance=ExtResource("4_63pkl")]
+visible = false
+
+[node name="wall-corner-round" parent="wall-corner-round2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250485, 0, -0.250882)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-corner-round2/wall-corner-round" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-corner-round2/wall-corner-round/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_phrth")
+
+[node name="wall-corner2" parent="." instance=ExtResource("5_n2gjv")]
+visible = false
+
+[node name="wall-corner" parent="wall-corner2" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.250485, 0, -0.250882)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-corner2/wall-corner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-corner2/wall-corner/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_cvxd7")
+
+[node name="wall-detail2" parent="." instance=ExtResource("6_j8mfn")]
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-detail2/wall-detail" index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-detail2/wall-detail/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_gbwvr")
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="wall-detail2/wall-detail/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, 0.25, -0.0866025)
+shape = SubResource("ConvexPolygonShape3D_ccsrk")
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="wall-detail2/wall-detail/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.25, -0.0866025)
+shape = SubResource("ConvexPolygonShape3D_ddnwj")
+
+[node name="wall-door-banner2" parent="." instance=ExtResource("7_0ryks")]
+visible = false
+
+[node name="StaticBody3D" type="StaticBody3D" parent="wall-door-banner2/wall-door-banner" index="0"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="wall-door-banner2/wall-door-banner/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_xv64q")
+
+[editable path="wall-banner2"]
+[editable path="wall-corner-banner2"]
+[editable path="wall-corner-round-banner2"]
+[editable path="wall-corner-round2"]
+[editable path="wall-corner2"]
+[editable path="wall-detail2"]
+[editable path="wall-door-banner2"]
