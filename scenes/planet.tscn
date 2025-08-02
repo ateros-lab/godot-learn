@@ -1,0 +1,140 @@
+[gd_scene load_steps=8 format=3 uid="uid://y6rxp45oc1x2"]
+
+[ext_resource type="PackedScene" uid="uid://tjjkh1qg4tgg" path="res://assets/space-station/Models/table-display-planet.glb" id="1_7n8rh"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_wfklb"]
+points = PackedVector3Array(-0.40001, 0, 0, -0.470732, 0, 0.0292678, -0.36252, 0.1, 0.0624511, -0.100039, 0, 0, -0.5, 0, 0.0999902, -0.437549, 0.1, 0.13748, -0.415574, 0.1, 0.0844264, -0.137529, 0.1, 0.0624511, -0.0293168, 0, 0.0292678, -0.5, 0, 0.399961, -0.437549, 0.1, 0.362471, -0.0844753, 0.1, 0.0844264, 0, 0, 0.0999902, -0.470732, 0, 0.470683, -0.415574, 0.1, 0.415525, -0.0625489, 0.1, 0.13748, 0, 0, 0.399961, -0.40001, 0, 0.5, -0.36252, 0.1, 0.437451, -0.0625489, 0.1, 0.362471, -0.0844753, 0.1, 0.415525, -0.0293168, 0, 0.470683, -0.100039, 0, 0.5, -0.137529, 0.1, 0.437451)
+
+[sub_resource type="Animation" id="Animation_ls4by"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("table-display-planet/planet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(-0.25, 0.3, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("table-display-planet/planet:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("table-display-planet/planet-ring:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_im1ob"]
+resource_name = "rotation-planet"
+length = 2.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("table-display-planet/planet:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(-0.25, 0.3, 0.25), Vector3(-0.25, 0.625431, 0.25)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("table-display-planet/planet:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("table-display-planet/planet-ring:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_wxfjo"]
+_data = {
+"RESET": SubResource("Animation_ls4by"),
+"rotation-planet": SubResource("Animation_im1ob")
+}
+
+[sub_resource type="GDScript" id="GDScript_khd01"]
+script/source = "extends Area3D
+
+@onready var planet: MeshInstance3D = $\"../table-display-planet2/table-display-planet/planet\"
+@onready var planet_ring: MeshInstance3D = $\"../table-display-planet2/table-display-planet/planet-ring\"
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+func hide_planet() -> void:
+	planet.visible = false
+	planet_ring.visible = false
+"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_81wwp"]
+size = Vector3(0.748535, 0.772552, 0.793091)
+
+[node name="Planet" type="Node3D"]
+
+[node name="table-display-planet2" parent="." instance=ExtResource("1_7n8rh")]
+transform = Transform3D(2.44, 0, 0, 0, 2.44, 0, 0, 0, 2.44, 0, 0, 0)
+
+[node name="StaticBody3D" type="StaticBody3D" parent="table-display-planet2/table-display-planet" index="2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="table-display-planet2/table-display-planet/StaticBody3D"]
+shape = SubResource("ConvexPolygonShape3D_wfklb")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="table-display-planet2"]
+libraries = {
+"": SubResource("AnimationLibrary_wxfjo")
+}
+autoplay = "rotation-planet"
+
+[node name="PlanetArea" type="Area3D" parent="." groups=["planet"]]
+script = SubResource("GDScript_khd01")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PlanetArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.601161, 0.714959, 0.607467)
+shape = SubResource("BoxShape3D_81wwp")
+
+[editable path="table-display-planet2"]

@@ -1,15 +1,47 @@
-[gd_scene load_steps=21 format=3 uid="uid://da0wdun62jma6"]
+[gd_scene load_steps=28 format=3 uid="uid://da0wdun62jma6"]
 
 [ext_resource type="Material" uid="uid://vo1llyou40fm" path="res://materials/white.tres" id="1_ufdl5"]
 [ext_resource type="Script" path="res://scripts/player-controller.gd" id="2_iqr7l"]
 [ext_resource type="Material" uid="uid://b8tbtfxb8rndq" path="res://materials/red.tres" id="3_ll81h"]
 [ext_resource type="Script" path="res://scripts/camera_pivot.gd" id="3_q28b7"]
 [ext_resource type="PackedScene" uid="uid://bx4rc5o0jewgj" path="res://assets/characters/Models/character-male-d.glb" id="4_6v1k3"]
+[ext_resource type="Script" path="res://scripts/enemy.gd" id="5_68npg"]
 [ext_resource type="PackedScene" uid="uid://b1baeaj2bjomq" path="res://assets/space-station/Models/container-flat.glb" id="5_nq4ve"]
 [ext_resource type="PackedScene" uid="uid://dpx5152de8ikw" path="res://assets/space-station/Models/container-tall.glb" id="6_xiyq6"]
 [ext_resource type="PackedScene" uid="uid://b6a2obl6rxh7k" path="res://scenes/physics_container.tscn" id="7_3y4jh"]
 [ext_resource type="MeshLibrary" uid="uid://4ctcqm04xn34" path="res://mesh-libraries/wall-libraries.tres" id="8_0k6r8"]
-[ext_resource type="PackedScene" uid="uid://tjjkh1qg4tgg" path="res://assets/space-station/Models/table-display-planet.glb" id="9_jrfpp"]
+[ext_resource type="PackedScene" uid="uid://y6rxp45oc1x2" path="res://scenes/planet.tscn" id="10_xc6bs"]
+
+[sub_resource type="GDScript" id="GDScript_pmwcq"]
+script/source = "extends Node
+
+@onready var planet: Node3D = $\"../Planet\"
+@onready var label: Label = $\"../UserInterface/Label\"
+var planet_count: int = 5
+const PLANET: Resource = preload(\"res://scenes/planet.tscn\")
+const LABEL_TEXT: String = 'Planet count - '
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	for i in range(1, 5):
+		var planet_instance = PLANET.instantiate()
+		planet_instance.position = planet.position
+		planet_instance.position.z -= i
+		add_child(planet_instance)
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+
+
+func _on_player_area_area_entered(area: Area3D) -> void:
+	if area.is_in_group('planet'):
+		if area.planet.visible:
+			area.hide_planet()
+			planet_count -= 1
+			label.text = LABEL_TEXT + str(planet_count) # int() float() bool()
+"
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_snw0r"]
 sky_horizon_color = Color(0.64625, 0.65575, 0.67075, 1)
@@ -27,6 +59,31 @@ tonemap_mode = 2
 radius = 0.215783
 height = 0.644518
 
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_at2ba"]
+radius = 0.978662
+height = 2.02301
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_p6xtw"]
+radius = 0.212675
+height = 0.710966
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q6jw8"]
+bg_color = Color(0.668909, 0.683724, 0.672493, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_yb07i"]
+bg_color = Color(0.962867, 0, 0.196948, 1)
+corner_radius_top_left = 20
+corner_radius_top_right = 20
+corner_radius_bottom_right = 20
+corner_radius_bottom_left = 20
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_n4w8u"]
+viewport_path = NodePath("Enemy/SubViewport")
+
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_b1aqe"]
 points = PackedVector3Array(0.359497, 0.449941, -0.240978, 0.299977, 0.449941, 0.349986, 0.359497, 0.149941, -0.240978, 0.359497, 0.449941, -0.341038, 0.20947, 0.6, -0.240978, 0.299977, 0.149941, 0.349986, 0.14995, 0.6, 0.349986, 0.0999847, 0.49998, 0.55, 0.199981, 0.399961, 0.55, 0.20947, 1.0558e-14, -0.240978, 0.359497, 0.149941, -0.341038, 0.309467, 0.42498, -0.440992, 0.20947, 0.6, -0.341038, 0.199981, 0.19998, 0.55, 0.0999847, 0.0999608, 0.55, 0.14995, 1.0558e-14, 0.349986, -0.150038, 0.6, 0.349986, -0.100008, 0.49998, 0.55, 0.20947, 1.0558e-14, -0.341038, 0.184488, 0.0499804, -0.440992, 0.15944, 0.0999608, -0.540945, 0.259436, 0.19998, -0.540945, 0.259436, 0.399961, -0.540945, 0.15944, 0.49998, -0.540945, 0.184488, 0.549961, -0.440992, -0.090518, 0.6, -0.341038, -0.100008, 0.0999608, 0.55, -0.150038, 1.0558e-14, 0.349986, -0.150038, 0.6, 0.249926, -0.3, 0.449941, 0.349986, -0.250034, 0.42498, 0.44994, -0.200004, 0.399961, 0.55, -0.090518, 1.0558e-14, -0.341038, -0.0405522, 0.0999608, -0.540945, -0.0405522, 0.49998, -0.540945, -0.240545, 0.449941, -0.341038, -0.200004, 0.19998, 0.55, -0.3, 0.149941, 0.349986, -0.150038, 1.0558e-14, 0.249926, -0.3, 0.449941, 0.249926, -0.250034, 0.174961, 0.44994, -0.240545, 0.149941, -0.341038, -0.140548, 0.19998, -0.540945, -0.140548, 0.399961, -0.540945, -0.3, 0.149941, 0.249926)
 
@@ -36,93 +93,55 @@ points = PackedVector3Array(-5.87404e-05, 0.2, -0.3, -0.212138, 0.2, -0.212138, 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_t25xh"]
 points = PackedVector3Array(-0.5, 0.0999902, 0.249951, -0.426782, 0.0999902, 0.426733, -0.5, 0.799922, 0.249951, -0.426782, 0.0999902, 0.0732185, -0.450029, 0, 0.249951, -0.250049, 0.0999902, 0.5, -0.426782, 0.799922, 0.426733, -0.391445, 0, 0.391396, -0.426782, 0.799922, 0.0732185, -0.450029, 0.9, 0.249951, -0.250049, 0.0999902, 0, -0.250049, 0, 0.0499706, -0.391445, 0, 0.108555, -0.0732674, 0.0999902, 0.426733, -0.250049, 0.799922, 0.5, -0.250049, 0, 0.44998, -0.108604, 0, 0.391396, -0.391445, 0.9, 0.391396, -0.391445, 0.9, 0.108555, -0.250049, 0.9, 0.0499706, -0.250049, 0.799922, 0, -0.0732674, 0.0999902, 0.0732185, -0.108604, 0, 0.108555, 0, 0.0999902, 0.249951, -0.0732674, 0.799922, 0.426733, -0.108604, 0.9, 0.391396, -0.250049, 0.9, 0.44998, -0.0500196, 0, 0.249951, -0.108604, 0.9, 0.108555, -0.0732674, 0.799922, 0.0732185, 0, 0.799922, 0.249951, -0.0500196, 0.9, 0.249951)
 
-[sub_resource type="Animation" id="Animation_ls4by"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("table-display-planet/planet:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(-0.25, 0.3, 0.25)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("table-display-planet/planet:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("table-display-planet/planet-ring:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
+[sub_resource type="GDScript" id="GDScript_mmhaq"]
+script/source = "extends Control
 
-[sub_resource type="Animation" id="Animation_im1ob"]
-resource_name = "rotation-planet"
-length = 2.0
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = false
-tracks/0/path = NodePath("table-display-planet/planet:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(-0.25, 0.3, 0.25), Vector3(-0.25, 0.625431, 0.25)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("table-display-planet/planet:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("table-display-planet/planet-ring:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 6.28319, 0)]
-}
+signal some_signal
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_wxfjo"]
-_data = {
-"RESET": SubResource("Animation_ls4by"),
-"rotation-planet": SubResource("Animation_im1ob")
-}
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	some_signal.connect(some_func)
+
+func some_func() -> void:
+	pass
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	emit_signal('some_signal')
+	if Input.is_action_just_pressed('escape'):
+		if visible:
+			Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+			visible = false
+			get_tree().paused = false
+		else:
+			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
+			visible = true
+			get_tree().paused = true
+
+
+func _on_restart_button_pressed() -> void:
+	get_tree().paused = false
+	get_tree().reload_current_scene()
+
+
+func _on_exit_button_pressed() -> void:
+	get_tree().quit()
+"
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_jiur8"]
+vertices = PackedVector3Array(-2.9037, 1.58848, 7.78156, -1.9037, 1.58848, 7.78156, -1.9037, 1.58848, 6.58156, -4.2037, 1.58848, 6.58156, -3.2037, 1.58848, 7.98156, -4.2037, 1.58848, 10.8816, -2.9037, 1.58848, 9.28156, -3.2037, 1.58848, 9.08156, -1.1037, 1.58848, 10.8816, -1.1037, 1.58848, 9.28156, -1.0037, 1.58848, 7.78156, 0.196301, 1.58848, 8.18156, 0.696301, 1.58848, 7.78156, 0.696301, 1.58848, 6.58156, -0.703699, 1.58848, 7.98156, -0.603699, 1.58848, 8.88156, 0.196301, 1.58848, 8.88156, 0.696301, 1.58848, 10.8816, 0.696301, 1.58848, 9.28156, 2.3963, 1.58848, 7.78156, 3.2963, 1.58848, 6.58156, 3.2963, 1.58848, 10.8816, 2.7963, 1.58848, 8.88156, 2.5963, 1.58848, 9.18156, 2.7963, 1.58848, 8.18156)
+polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(0, 4, 2), PackedInt32Array(2, 4, 3), PackedInt32Array(5, 7, 6), PackedInt32Array(9, 8, 6), PackedInt32Array(6, 8, 5), PackedInt32Array(4, 7, 3), PackedInt32Array(3, 7, 5), PackedInt32Array(10, 1, 2), PackedInt32Array(14, 10, 11), PackedInt32Array(11, 10, 12), PackedInt32Array(12, 10, 13), PackedInt32Array(13, 10, 2), PackedInt32Array(16, 15, 11), PackedInt32Array(11, 15, 14), PackedInt32Array(15, 16, 9), PackedInt32Array(9, 16, 18), PackedInt32Array(9, 18, 17), PackedInt32Array(9, 17, 8), PackedInt32Array(12, 13, 19), PackedInt32Array(19, 13, 20), PackedInt32Array(23, 22, 21), PackedInt32Array(24, 19, 20), PackedInt32Array(24, 20, 22), PackedInt32Array(22, 20, 21), PackedInt32Array(18, 23, 17), PackedInt32Array(17, 23, 21)]
+cell_size = 0.1
+cell_height = 0.1
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_xri0j"]
+size = Vector3(7.90527, 0.827209, 4.48657)
 
 [node name="Main" type="Node3D"]
+
+[node name="PlanetController" type="Node" parent="."]
+script = SubResource("GDScript_pmwcq")
 
 [node name="World" type="Node3D" parent="."]
 
@@ -188,6 +207,74 @@ bones/5/rotation = Quaternion(0, 0, 0.382683, 0.92388)
 [node name="AnimationPlayer" parent="Player/PlayerMesh" index="1"]
 autoplay = "idle"
 
+[node name="PlayerArea" type="Area3D" parent="Player" groups=["player"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player/PlayerArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.323558, 0)
+shape = SubResource("CapsuleShape3D_at2ba")
+
+[node name="Enemy" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.38918, 10.4347)
+script = ExtResource("5_68npg")
+
+[node name="PlayerCollisionShape" type="CollisionShape3D" parent="Enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.328442, 0)
+shape = SubResource("CapsuleShape3D_18qpp")
+
+[node name="PlayerMesh" parent="Enemy" instance=ExtResource("4_6v1k3")]
+
+[node name="character-male-d" parent="Enemy/PlayerMesh" index="0"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Enemy/PlayerMesh/character-male-d" index="0"]
+bones/0/position = Vector3(0, 0.1, 0)
+bones/0/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/4/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+bones/5/rotation = Quaternion(-0.707107, 0, 0, 0.707107)
+
+[node name="AnimationPlayer" parent="Enemy/PlayerMesh" index="1"]
+autoplay = "idle"
+
+[node name="EnemyArea" type="Area3D" parent="Enemy" groups=["enemy"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Enemy/EnemyArea"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.360597, 0)
+shape = SubResource("CapsuleShape3D_p6xtw")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="Enemy"]
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_color = Color(0.214221, 2.69532e-06, 0.972228, 1)
+debug_path_custom_point_size = 20.0
+
+[node name="Control" type="Control" parent="Enemy"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="Enemy"]
+disable_3d = true
+transparent_bg = true
+size = Vector2i(200, 200)
+
+[node name="ProgressBar" type="ProgressBar" parent="Enemy/SubViewport"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.0
+offset_right = 43.0
+offset_bottom = 5.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_q6jw8")
+theme_override_styles/fill = SubResource("StyleBoxFlat_yb07i")
+value = 100.0
+show_percentage = false
+
+[node name="Sprite3D" type="Sprite3D" parent="Enemy"]
+billboard = 2
+texture = SubResource("ViewportTexture_n4w8u")
+
 [node name="Level" type="Node3D" parent="."]
 
 [node name="CSGBox3D" type="CSGBox3D" parent="Level"]
@@ -232,16 +319,107 @@ data = {
 }
 metadata/_editor_floor_ = Vector3(0, 0, 0)
 
-[node name="table-display-planet2" parent="." instance=ExtResource("9_jrfpp")]
-transform = Transform3D(2.44, 0, 0, 0, 2.44, 0, 0, 0, 2.44, -1.24845, 0.505543, -4.05274)
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="table-display-planet2"]
-libraries = {
-"": SubResource("AnimationLibrary_wxfjo")
-}
-autoplay = "rotation-planet"
+[node name="Label" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 21.0
+offset_top = 22.0
+offset_right = 247.0
+offset_bottom = 64.0
+theme_override_colors/font_color = Color(0.125834, 0, 0.756255, 1)
+theme_override_font_sizes/font_size = 35
+text = "Planet count - 5"
+
+[node name="Menu" type="Control" parent="."]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_mmhaq")
+
+[node name="RestartButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = -51.0
+offset_right = 165.5
+offset_bottom = 51.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Restart
+"
+
+[node name="ExitButton" type="Button" parent="Menu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.5
+offset_top = 100.0
+offset_right = 165.5
+offset_bottom = 202.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "Exit"
+
+[node name="Planet" parent="." instance=ExtResource("10_xc6bs")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.07976, 0.50571, -3.88682)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_jiur8")
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.455684, 0.888484, 8.71134)
+use_collision = true
+size = Vector3(8.49603, 1, 5.25955)
+material = ExtResource("3_ll81h")
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(0.649562, 0, 0, 0, 0.649562, 0, 0, 0, 0.649562, -1.92155, 1.53554, 8.5202)
+use_collision = true
+size = Vector3(2.40959, 1, 0.564684)
+material = ExtResource("3_ll81h")
+
+[node name="CSGBox3D5" type="CSGBox3D" parent="NavigationRegion3D"]
+transform = Transform3D(0.649562, 0, 0, 0, 0.649562, 0, 0, 0, 0.649562, 1.48626, 1.53554, 8.5202)
+use_collision = true
+size = Vector3(2.40959, 1, 0.564684)
+material = ExtResource("3_ll81h")
+
+[node name="EnemyTerritory" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="EnemyTerritory"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.338379, 1.03081, 8.79463)
+shape = SubResource("BoxShape3D_xri0j")
+
+[connection signal="area_entered" from="Player/PlayerArea" to="PlanetController" method="_on_player_area_area_entered"]
+[connection signal="area_entered" from="Enemy/EnemyArea" to="Enemy" method="_on_enemy_area_area_entered"]
+[connection signal="area_exited" from="Enemy/EnemyArea" to="Enemy" method="_on_enemy_area_area_exited"]
+[connection signal="pressed" from="Menu/RestartButton" to="Menu" method="_on_restart_button_pressed"]
+[connection signal="pressed" from="Menu/ExitButton" to="Menu" method="_on_exit_button_pressed"]
+[connection signal="area_entered" from="EnemyTerritory" to="Enemy" method="_on_enemy_territory_area_entered"]
+[connection signal="area_exited" from="EnemyTerritory" to="Enemy" method="_on_enemy_territory_area_exited"]
 
 [editable path="Player/PlayerMesh"]
+[editable path="Enemy/PlayerMesh"]
 [editable path="Container1/container-flat2"]
 [editable path="Container2"]
-[editable path="table-display-planet2"]

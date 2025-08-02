@@ -11,9 +11,12 @@ enum AnimationState {IDLE, WALK}
 var animation_state : AnimationState = AnimationState.IDLE
 
 func _process(delta : float) -> void:
+	if Input.is_action_just_pressed('mouse_click'):
+		animation_player.play('attack-melee-right')
+	
 	if not is_on_floor():
 		animation_player.play('jump') #.pause('jump') .stop()
-	else:
+	elif animation_player.current_animation != 'attack-melee-right':
 		match(animation_state):
 			AnimationState.IDLE:
 				animation_player.play('idle')
